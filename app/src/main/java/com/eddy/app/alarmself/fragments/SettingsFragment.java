@@ -1,5 +1,4 @@
 package com.eddy.app.alarmself.fragments;
-
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
