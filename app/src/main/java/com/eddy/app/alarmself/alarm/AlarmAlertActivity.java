@@ -17,9 +17,11 @@ import android.view.HapticFeedbackConstants;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.MediaController;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.VideoView;
+
 import com.androdocs.httprequest.HttpRequest;
 
 
@@ -94,6 +96,7 @@ public class AlarmAlertActivity extends Activity {
         temperature = (TextView) findViewById(R.id.temperatureText);
 
         new weatherTask().execute();
+        showVideo().start();
 
     }
 
@@ -152,7 +155,7 @@ public class AlarmAlertActivity extends Activity {
         processIntent(intent);
     }
 
-    private void processIntent(Intent intent){
+    private void processIntent(Intent intent) {
         Log.d(TAG, intent.toString());
     }
 
@@ -220,7 +223,7 @@ public class AlarmAlertActivity extends Activity {
     class weatherTask extends AsyncTask<String, Void, String> {
 
         protected String doInBackground(String... args) {
-            return HttpRequest.excuteGet("https://api.openweathermap.org/data/2.5/weather?q="+CITY+"&&units=metric&appid="+API);
+            return HttpRequest.excuteGet("https://api.openweathermap.org/data/2.5/weather?q=" + CITY + "&&units=metric&appid=" + API);
         }
 
         @Override
@@ -274,6 +277,38 @@ public class AlarmAlertActivity extends Activity {
             }
 
         }
+    }
+
+    public VideoView showVideo() {
+        videoArray = new ArrayList<>();
+        videoArray.add("android.resource://" + getPackageName() + "/" + (String.valueOf(getResources().getIdentifier("f1",
+                "raw", getPackageName()))));
+        videoArray.add("android.resource://" + getPackageName() + "/" + (String.valueOf(getResources().getIdentifier("f2",
+                "raw", getPackageName()))));
+        videoArray.add("android.resource://" + getPackageName() + "/" + (String.valueOf(getResources().getIdentifier("w1",
+                "raw", getPackageName()))));
+
+
+        // videoArray.add("android.resource://" + getPackageName() + "/" + R.raw.s1);
+        int randomNumber = (int) (Math.random() * videoArray.size() + 0);
+
+
+        video = (VideoView) findViewById(R.id.videoView);
+
+        String path1 = videoArray.get(randomNumber);
+        MediaController mc = new MediaController(this);
+        mc.setAnchorView(video);
+        mc.setMediaPlayer(video);
+        video.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                mp.setLooping(true);
+            }
+        });
+        Uri uri = Uri.parse(path1);
+        video.setMediaController(mc);
+        video.setVideoURI(uri);
+        return video;
+    }
 }
 
-}

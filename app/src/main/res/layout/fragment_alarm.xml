@@ -30,14 +30,14 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/fab_margin"
-        android:layout_marginRight="@dimen/fab_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:layout_alignParentBottom="true"
-        app:backgroundTint="@color/iconActivated"
-        android:src="@drawable/vd_fb_add"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/fab_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:layout_marginBottom="36dp"
         android:visibility="invisible"
-        android:layout_centerHorizontal="true" />
+        app:backgroundTint="@color/iconActivated"
+        app:srcCompat="@drawable/vd_fb_add" />
 
 </RelativeLayout>

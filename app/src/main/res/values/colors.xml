@@ -5,4 +5,5 @@
     <color name="colorAccent">#2e7d32</color>
     <color name="iconActivated">#4caf50</color>
     <color name="iconDeactivated">#2e7d32</color>
+    <color name="darkGreen">#0A340C</color>
 </resources>

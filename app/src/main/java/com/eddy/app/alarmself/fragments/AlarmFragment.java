@@ -2,6 +2,7 @@ package com.eddy.app.alarmself.fragments;
 
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -44,6 +46,7 @@ public class AlarmFragment extends Fragment implements View.OnClickListener {
     private FloatingActionButton fab;
     private Button deleteButton;
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -95,11 +98,11 @@ public class AlarmFragment extends Fragment implements View.OnClickListener {
             }
         });
 
+
         showFab();
 
 
-       /* deleteButton = (Button) view.findViewById(R.id.delButton);
-        deleteButton.setOnClickListener(new View.OnClickListener() {
+       /* deleteButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
@@ -155,7 +158,9 @@ public class AlarmFragment extends Fragment implements View.OnClickListener {
     }
 
     private void activateIcon() {
-        tabLayout.getTabAt(position).setIcon(animation);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            tabLayout.getTabAt(position).setIcon(animation);
+        }
         animation.start();
     }
 
@@ -194,6 +199,7 @@ public class AlarmFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
+        deleteButton = (Button) view.findViewById(R.id.delButton);
 
         switch (view.getId()) {
             case R.id.checkBox_alarm_active:
@@ -205,37 +211,51 @@ public class AlarmFragment extends Fragment implements View.OnClickListener {
                 //callMathAlarmScheduleService();
                 if (checkBox.isChecked()) {
                     checkedToUnchecked.stop();
-                    checkBox.setButtonDrawable(uncheckedToChecked);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        checkBox.setButtonDrawable(uncheckedToChecked);
+                    }
                     uncheckedToChecked.start();
                     alarm.reset();
                     alarm.schedule(getContext());
 //                    Toast.makeText(getActivity(), alarm.getTimeUntilNextAlarmMessage(), Toast.LENGTH_LONG).show();
                 } else {
                     uncheckedToChecked.stop();
-                    checkBox.setButtonDrawable(checkedToUnchecked);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        checkBox.setButtonDrawable(checkedToUnchecked);
+                    }
                     checkedToUnchecked.start();
                 }
                 break;
             case R.id.textView_alarm_time:
+
             case R.id.textView_alarm_days:
                 final Bundle bundle = new Bundle();
                 bundle.putParcelable(Alarm.TAG, (Alarm) adapter.getItem((Integer) view.getTag()));
-
                 StartTimePickerFragment fragment = new StartTimePickerFragment();
                 fragment.setAlarmFragment(AlarmFragment.this);
                 fragment.setArguments(bundle);
                 fragment.show(getFragmentManager(), "timePicker");
-                break;
+              //  break;
 
             case R.id.delButton:
-                Alarm alarm1 = (Alarm) adapter.getItem(view.getId());
-                if (alarm1 != null) {
-                    alarm1.cancelAlarm(getContext());
-                    DatabaseManager.deleteEntry(alarm1);
-                }
-
+                alarm = (Alarm) adapter.getItem(view.getId());
+                alarm.cancelAlarm(getContext());
+                DatabaseManager.deleteEntry(alarm);
                 updateAlarmList();
+
                 break;
         }
     }
+
+    private void deleteAlarm(View view) {
+        Alarm alarm1 = (Alarm) adapter.getItem(view.getId());
+        if (alarm1 != null) {
+            alarm1.cancelAlarm(getContext());
+            DatabaseManager.deleteEntry(alarm1);
+        }
+
+        updateAlarmList();
+    }
+
+
 }
