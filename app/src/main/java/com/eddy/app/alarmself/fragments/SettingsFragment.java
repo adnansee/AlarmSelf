@@ -2,14 +2,17 @@ package com.eddy.app.alarmself.fragments;
 
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.fragment.app.Fragment;
+
 import com.eddy.app.alarmself.R;
+import com.google.android.material.tabs.TabLayout;
 
 
 public class SettingsFragment extends Fragment {
@@ -29,7 +32,9 @@ public class SettingsFragment extends Fragment {
         }
 
         deactivated = getResources().getDrawable(R.drawable.vd_pathmorph_arrowoverflow_overflow_deactivated);
-        animation = (AnimatedVectorDrawable) getResources().getDrawable(R.drawable.avd_pathmorph_arrowoverflow_overflow_to_arrow);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            animation = (AnimatedVectorDrawable) getResources().getDrawable(R.drawable.avd_pathmorph_arrowoverflow_overflow_to_arrow);
+        }
 
         tabLayout.getTabAt(position).setIcon(deactivated);
 
@@ -50,7 +55,9 @@ public class SettingsFragment extends Fragment {
 
         if (isVisibleToUser) {
             // start animation
-            tabLayout.getTabAt(position).setIcon(animation);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                tabLayout.getTabAt(position).setIcon(animation);
+            }
             animation.start();
         } else {
             // deactivated icon

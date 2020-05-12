@@ -1,9 +1,10 @@
 package com.eddy.app.alarmself.util;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.eddy.app.alarmself.R;
 import com.eddy.app.alarmself.alarm.Alarm;

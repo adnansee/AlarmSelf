@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">OpenAlarm</string>
+    <string name="app_name" translatable="false">ALARMLEAF</string>
     <string name="action_settings">Settings</string>
 
     <string name="path_tick" translatable="false">M4.8,13.4 L9,17.6 M10.4,16.2 L19.6,7</string>

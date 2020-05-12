@@ -3,8 +3,9 @@ package com.eddy.app.alarmself.service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.content.WakefulBroadcastReceiver;
 import android.util.Log;
+
+import androidx.legacy.content.WakefulBroadcastReceiver;
 
 import com.eddy.app.alarmself.alarm.Alarm;
 

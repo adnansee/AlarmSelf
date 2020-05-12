@@ -2,14 +2,16 @@ package com.eddy.app.alarmself.alarm;
 
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.support.v7.widget.RecyclerView;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
+
+import androidx.annotation.RequiresApi;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.eddy.app.alarmself.R;
 import com.eddy.app.alarmself.fragments.AlarmFragment;

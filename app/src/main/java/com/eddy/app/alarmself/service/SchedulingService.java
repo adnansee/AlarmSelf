@@ -5,7 +5,8 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.NotificationCompat;
+
+import androidx.core.app.NotificationCompat;
 
 import com.eddy.app.alarmself.R;
 import com.eddy.app.alarmself.alarm.AlarmAlertActivity;

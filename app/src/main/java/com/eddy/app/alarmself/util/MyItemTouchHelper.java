@@ -1,7 +1,9 @@
 package com.eddy.app.alarmself.util;
 
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
+
+
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.eddy.app.alarmself.alarm.Alarm;
 import com.eddy.app.alarmself.db.DatabaseManager;
