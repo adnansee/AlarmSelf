@@ -5,14 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@color/colorAccent"
     style="@style/AppTheme.NoActionBar">
 
 
     <VideoView
         android:id="@+id/videoView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="413dp"
+        android:layout_height="734dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="32dp"
@@ -21,8 +20,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.937" />
-
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageButton
         android:id="@+id/stopImage"
@@ -32,29 +30,35 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:background="#00FFFFFF"
-        android:src="@drawable/cancel"
+        android:contentDescription="TODO"
+        android:src="@drawable/return2"
         app:layout_constraintBottom_toBottomOf="@+id/videoView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/temperatureText" />
+        app:layout_constraintTop_toBottomOf="@+id/temperatureText"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/temperatureText"
-        android:layout_width="103dp"
-        android:layout_height="35dp"
+        android:layout_width="151dp"
+        android:layout_height="37dp"
         android:layout_above="@+id/stopImage"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginTop="540dp"
         android:fontFamily="@font/audiowide"
-        android:text="TextView"
-        android:textColor="@android:color/background_light"
+        android:text="@string/Temperature"
+        android:textColor="@android:color/darker_gray"
         android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/videoView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.076"
+        android:gravity="center"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

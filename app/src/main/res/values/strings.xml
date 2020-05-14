@@ -13,4 +13,5 @@
     <string formatted="false" name="alarm_minutes">\"%d minutes.\"</string>
     <string formatted="false" name="alarm_less_minute">less than a minute.</string>
     <string name="del">DEL</string>
+    <string name="Temperature">TextView</string>
 </resources>

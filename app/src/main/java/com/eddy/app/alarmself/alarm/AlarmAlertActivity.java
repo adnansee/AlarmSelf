@@ -281,11 +281,11 @@ public class AlarmAlertActivity extends Activity {
 
     public VideoView showVideo() {
         videoArray = new ArrayList<>();
-        videoArray.add("android.resource://" + getPackageName() + "/" + (String.valueOf(getResources().getIdentifier("f1",
+        videoArray.add("android.resource://" + getPackageName() + "/" + (String.valueOf(getResources().getIdentifier("rain1",
                 "raw", getPackageName()))));
-        videoArray.add("android.resource://" + getPackageName() + "/" + (String.valueOf(getResources().getIdentifier("f2",
+        videoArray.add("android.resource://" + getPackageName() + "/" + (String.valueOf(getResources().getIdentifier("waves1",
                 "raw", getPackageName()))));
-        videoArray.add("android.resource://" + getPackageName() + "/" + (String.valueOf(getResources().getIdentifier("w1",
+        videoArray.add("android.resource://" + getPackageName() + "/" + (String.valueOf(getResources().getIdentifier("rain1",
                 "raw", getPackageName()))));
 
 

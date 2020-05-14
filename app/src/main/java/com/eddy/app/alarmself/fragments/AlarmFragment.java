@@ -235,16 +235,19 @@ public class AlarmFragment extends Fragment implements View.OnClickListener {
                 fragment.setAlarmFragment(AlarmFragment.this);
                 fragment.setArguments(bundle);
                 fragment.show(getFragmentManager(), "timePicker");
-              //  break;
+                break;
 
             case R.id.delButton:
-                alarm = (Alarm) adapter.getItem(view.getId());
+              alarm = (Alarm) adapter.getItem(view.getId());
                 alarm.cancelAlarm(getContext());
-                DatabaseManager.deleteEntry(alarm);
+               DatabaseManager.deleteEntry(view.getId());
                 updateAlarmList();
 
                 break;
+
         }
+        updateAlarmList();
+
     }
 
     private void deleteAlarm(View view) {
