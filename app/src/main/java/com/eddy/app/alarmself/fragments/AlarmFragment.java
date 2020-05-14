@@ -29,6 +29,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.List;
+import java.util.Objects;
 
 public class AlarmFragment extends Fragment implements View.OnClickListener {
 
@@ -65,7 +66,7 @@ public class AlarmFragment extends Fragment implements View.OnClickListener {
         checkedToUnchecked = (AnimatedVectorDrawable) getResources().getDrawable(R.drawable.avd_pathmorph_crosstick_tick_to_cross);
         uncheckedToChecked = (AnimatedVectorDrawable) getResources().getDrawable(R.drawable.avd_pathmorph_crosstick_cross_to_tick);
         showFab = AnimationUtils.loadAnimation(getContext(), R.anim.fab1_show);
-        tabLayout.getTabAt(0).setIcon(animation);
+        Objects.requireNonNull(tabLayout.getTabAt(0)).setIcon(animation);
 
         return rootView;
     }
@@ -94,6 +95,7 @@ public class AlarmFragment extends Fragment implements View.OnClickListener {
             public void onClick(View view) {
                 StartTimePickerFragment fragment = new StartTimePickerFragment();
                 fragment.setAlarmFragment(AlarmFragment.this);
+                assert getFragmentManager() != null;
                 fragment.show(getFragmentManager(), "timePicker");
             }
         });

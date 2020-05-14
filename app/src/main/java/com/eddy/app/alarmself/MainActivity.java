@@ -1,5 +1,6 @@
 package com.eddy.app.alarmself;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -73,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @SuppressLint("StaticFieldLeak")
     private class giveRandomPic extends AsyncTask<URL, Integer, Drawable> {
 
         URL url = new URL("https://picsum.photos/200/300");
