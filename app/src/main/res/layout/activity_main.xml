@@ -8,6 +8,7 @@
     android:fitsSystemWindows="true"
     tools:context="com.eddy.app.alarmself.MainActivity"
 
+
     >
 
     <com.google.android.material.appbar.AppBarLayout
