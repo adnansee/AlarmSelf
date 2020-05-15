@@ -32,8 +32,11 @@ import com.eddy.app.alarmself.util.Parcelables;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Time;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -53,6 +56,7 @@ public class AlarmAlertActivity extends Activity {
     String API = "90c8c7a8d3996d110775fce0986b381a";
     private int brightness;
     private ArrayList<String> videoArray;
+    private TextView currentTime;
 
 
     @Override
@@ -96,6 +100,11 @@ public class AlarmAlertActivity extends Activity {
         temperature = (TextView) findViewById(R.id.temperatureText);
 
         new weatherTask().execute();
+        DateFormat dateFormat = new SimpleDateFormat("mm:ss");
+        Calendar cal = Calendar.getInstance();
+        currentTime = (TextView) findViewById(R.id.currentTime);
+
+        currentTime.setText(dateFormat.format(cal.getTime()));
         showVideo().start();
 
     }

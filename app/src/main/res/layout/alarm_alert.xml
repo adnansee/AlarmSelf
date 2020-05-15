@@ -60,5 +60,25 @@
         android:gravity="center"
         />
 
+    <TextView
+        android:id="@+id/currentTime"
+        android:layout_width="151dp"
+        android:layout_height="37dp"
+        android:layout_above="@+id/stopImage"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="540dp"
+        android:fontFamily="@font/audiowide"
+        android:gravity="center"
+        android:text="@string/Temperature"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/videoView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.155" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
