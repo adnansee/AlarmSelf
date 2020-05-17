@@ -68,7 +68,7 @@ public class AlarmFragment extends Fragment implements View.OnClickListener {
         checkedToUnchecked = (AnimatedVectorDrawable) getResources().getDrawable(R.drawable.avd_pathmorph_crosstick_tick_to_cross);
         uncheckedToChecked = (AnimatedVectorDrawable) getResources().getDrawable(R.drawable.avd_pathmorph_crosstick_cross_to_tick);
         showFab = AnimationUtils.loadAnimation(getContext(), R.anim.fab1_show);
-        Objects.requireNonNull(tabLayout.getTabAt(0)).setIcon(animation);
+        tabLayout.getTabAt(0).setIcon(animation);
 
         return rootView;
     }
@@ -93,20 +93,16 @@ public class AlarmFragment extends Fragment implements View.OnClickListener {
         updateAlarmList();
 
         fab = (FloatingActionButton) view.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                StartTimePickerFragment fragment = new StartTimePickerFragment();
-                fragment.setAlarmFragment(AlarmFragment.this);
-                assert getFragmentManager() != null;
-                fragment.show(getFragmentManager(), "timePicker");
-            }
+        fab.setOnClickListener(view1 -> {
+            StartTimePickerFragment fragment = new StartTimePickerFragment();
+            fragment.setAlarmFragment(AlarmFragment.this);
+            fragment.show(getFragmentManager(), "timePicker");
         });
 
         showFab();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
@@ -143,17 +139,17 @@ public class AlarmFragment extends Fragment implements View.OnClickListener {
         fab.setClickable(true);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void activateIcon() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            tabLayout.getTabAt(position).setIcon(animation);
-        }
+        tabLayout.getTabAt(position).setIcon(animation);
         animation.start();
     }
 
 
     private void deactivateIcon() {
         animation.stop();
-        tabLayout.getTabAt(position).setIcon(deactivated);
+        Objects.requireNonNull(tabLayout.getTabAt(position)).setIcon(deactivated);
+
     }
 
     public void setPosition(int position) {
@@ -183,64 +179,49 @@ public class AlarmFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onClick(View view) {
     deleteButton = (Button) view.findViewById(R.id.delButton);
-        switch (view.getId()) {
-            case R.id.checkBox_alarm_active:
-                CheckBox checkBox = (CheckBox) view;
+        int id = view.getId();
+        if (id == R.id.checkBox_alarm_active) {
+            CheckBox checkBox = (CheckBox) view;
 
-                Alarm alarm = (Alarm) adapter.getItem((Integer) checkBox.getTag());
-                alarm.setActive(checkBox.isChecked());
-                DatabaseManager.update(alarm);
-                //callMathAlarmScheduleService();
-                if (checkBox.isChecked()) {
-                    checkedToUnchecked.stop();
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        checkBox.setButtonDrawable(uncheckedToChecked);
-                    }
-                    uncheckedToChecked.start();
-                    alarm.reset();
-                    alarm.schedule(getContext());
+            Alarm alarm = (Alarm) adapter.getItem((Integer) checkBox.getTag());
+            alarm.setActive(checkBox.isChecked());
+            DatabaseManager.update(alarm);
+            //callMathAlarmScheduleService();
+            if (checkBox.isChecked()) {
+                checkedToUnchecked.stop();
+                checkBox.setButtonDrawable(uncheckedToChecked);
+                uncheckedToChecked.start();
+                alarm.reset();
+                alarm.schedule(getContext());
 //                    Toast.makeText(getActivity(), alarm.getTimeUntilNextAlarmMessage(), Toast.LENGTH_LONG).show();
-                } else {
-                    uncheckedToChecked.stop();
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        checkBox.setButtonDrawable(checkedToUnchecked);
-                    }
-                    checkedToUnchecked.start();
-                }
-                break;
-            case R.id.textView_alarm_time:
+            } else {
+                uncheckedToChecked.stop();
+                checkBox.setButtonDrawable(checkedToUnchecked);
+                checkedToUnchecked.start();
+            }
+        } else if (id == R.id.textView_alarm_time || id == R.id.textView_alarm_days) {
+            final Bundle bundle = new Bundle();
+            bundle.putParcelable(Alarm.TAG, (Alarm) adapter.getItem((Integer) view.getTag()));
+            final StartTimePickerFragment fragment = new StartTimePickerFragment();
+            fragment.setAlarmFragment(AlarmFragment.this);
+            fragment.setArguments(bundle);
+            fragment.show(getFragmentManager(), "timePicker");
 
-            case R.id.textView_alarm_days:
-                Bundle bundle = new Bundle();
-                bundle.putParcelable(Alarm.TAG, (Alarm) adapter.getItem((Integer) view.getTag()));
-                StartTimePickerFragment fragment = new StartTimePickerFragment();
-                fragment.setAlarmFragment(AlarmFragment.this);
-                fragment.setArguments(bundle);
-                fragment.show(getFragmentManager(), "timePicker");
-                break;
-
-            case R.id.delButton:
-                System.out.println("HELL");
-                deleteButton = (Button) view.findViewById(R.id.delButton);
-                alarm = (Alarm) adapter.getItem(view.getId());           //     alarm = (Alarm) adapter.getItem(view.getId());
-               // alarm.cancelAlarm(getContext());
-                //DatabaseManager.deleteEntry(view.getId());
-                //updateAlarmList();
-
-                break;
-
-            case R.id.view1:
-
-                updateAlarmList();
+            //  case R.id.delButton:
+            //      System.out.println("HELL");
+            //        deleteButton = (Button) view.findViewById(R.id.delButton);
+            //          alarm = (Alarm) adapter.getItem(view.getId());           //     alarm = (Alarm) adapter.getItem(view.getId());
+            // alarm.cancelAlarm(getContext());
+            //DatabaseManager.deleteEntry(view.getId());
+            //updateAlarmList();
+            //    break;
+            //  case R.id.view1:
+            // updateAlarmList();
         }
-
-
-        updateAlarmList();
-
+     //   updateAlarmList();
     }
-
-
 }

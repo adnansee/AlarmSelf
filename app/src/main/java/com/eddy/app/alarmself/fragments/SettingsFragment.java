@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.eddy.app.alarmself.R;
@@ -21,6 +22,7 @@ public class SettingsFragment extends Fragment {
     private Drawable deactivated;
     private int position;
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -31,15 +33,15 @@ public class SettingsFragment extends Fragment {
         }
 
         deactivated = getResources().getDrawable(R.drawable.vd_pathmorph_arrowoverflow_overflow_deactivated);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            animation = (AnimatedVectorDrawable) getResources().getDrawable(R.drawable.avd_pathmorph_arrowoverflow_overflow_to_arrow);
-        }
+        animation = (AnimatedVectorDrawable) getResources().getDrawable(R.drawable.avd_pathmorph_arrowoverflow_overflow_to_arrow);
+
 
         tabLayout.getTabAt(position).setIcon(deactivated);
 
         return rootView;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
@@ -54,9 +56,7 @@ public class SettingsFragment extends Fragment {
 
         if (isVisibleToUser) {
             // start animation
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                tabLayout.getTabAt(position).setIcon(animation);
-            }
+            tabLayout.getTabAt(position).setIcon(animation);
             animation.start();
         } else {
             // deactivated icon

@@ -34,8 +34,7 @@ public class MainActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
-    private Drawable background;
-    private giveRandomPic giveRandomPic;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,44 +54,10 @@ public class MainActivity extends AppCompatActivity {
         //background = giveRandomPic.doInBackground();
 
 
-       // mViewPager.setBackgroundDrawable(background);
+        // mViewPager.setBackgroundDrawable(background);
 
     }
 
-    public void givePic() {
-        URL url = null;
-        try {
-            url = new URL("https://picsum.photos/200/300");
-            Bitmap bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-            BitmapDrawable background = new BitmapDrawable(getResources(), bitmap);
-            mViewPager.setBackgroundDrawable(background);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-    }
-
-    @SuppressLint("StaticFieldLeak")
-    private class giveRandomPic extends AsyncTask<URL, Integer, Drawable> {
-
-        URL url = new URL("https://picsum.photos/200/300");
-
-        private giveRandomPic() throws MalformedURLException {}
-
-        protected Drawable doInBackground(URL... urls) {
-            Bitmap bitmap = null;
-            try {
-                bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            BitmapDrawable background = new BitmapDrawable(getResources(), bitmap);
-            return background;}
-
-        protected void onProgressUpdate(Integer... progress) {}
-        protected void onPostExecute(Drawable result) {}
-    }
 
 }

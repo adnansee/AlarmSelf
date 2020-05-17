@@ -10,7 +10,7 @@
     <pl.droidsonroids.gif.GifTextView
         android:layout_width="151dp"
         android:layout_height="121dp"
-        android:background="@drawable/infinity"
+        android:background="@drawable/infinitycrop"
         app:layout_constraintBottom_toTopOf="@+id/gifTextView6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -20,9 +20,9 @@
 
     <pl.droidsonroids.gif.GifTextView
         android:id="@+id/gifTextView6"
-        android:layout_width="254dp"
-        android:layout_height="28dp"
-        android:background="@drawable/copy6"
+        android:layout_width="213dp"
+        android:layout_height="19dp"
+        android:background="@drawable/copy7"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -100,7 +100,7 @@ public class AlarmAlertActivity extends Activity {
         temperature = (TextView) findViewById(R.id.temperatureText);
 
         new weatherTask().execute();
-        DateFormat dateFormat = new SimpleDateFormat("mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm");
         Calendar cal = Calendar.getInstance();
         currentTime = (TextView) findViewById(R.id.currentTime);
 

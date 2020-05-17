@@ -8,7 +8,7 @@ import android.os.Handler;
 import com.eddy.app.alarmself.MainActivity;
 import com.eddy.app.alarmself.R;
 
-public class SplashScreen extends Activity { private static int SPLASH_TIME_OUT = 3000;
+public class SplashScreen extends Activity { private static int SPLASH_TIME_OUT = 1500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

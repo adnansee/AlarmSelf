@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    style="@style/AppTheme.NoActionBar">
+    style="@style/AppTheme.NoActionBar"
+    >
 
 
     <VideoView
@@ -22,63 +23,46 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <ImageButton
-        android:id="@+id/stopImage"
-        android:layout_width="64dp"
-        android:layout_height="69dp"
-        android:layout_alignBottom="@+id/videoView"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:background="#00FFFFFF"
-        android:contentDescription="TODO"
-        android:src="@drawable/return2"
-        app:layout_constraintBottom_toBottomOf="@+id/videoView"
+    <LinearLayout
+        android:layout_width="352dp"
+        android:layout_height="51dp"
+        android:layout_marginBottom="64dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/temperatureText"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintHorizontal_bias="0.271"
+        app:layout_constraintStart_toStartOf="parent">
 
-    <TextView
-        android:id="@+id/temperatureText"
-        android:layout_width="151dp"
-        android:layout_height="37dp"
-        android:layout_above="@+id/stopImage"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="540dp"
-        android:fontFamily="@font/audiowide"
-        android:text="@string/Temperature"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/videoView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.076"
-        android:gravity="center"
-        />
+        <TextView
+            android:id="@+id/currentTime"
+            android:layout_width="131dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="36dp"
+            android:fontFamily="@font/advent_pro_medium"
+            android:gravity="center"
+            android:text="@string/Temperature"
+            android:textColor="@android:color/background_light"
+            android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/currentTime"
-        android:layout_width="151dp"
-        android:layout_height="37dp"
-        android:layout_above="@+id/stopImage"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="540dp"
-        android:fontFamily="@font/audiowide"
-        android:gravity="center"
-        android:text="@string/Temperature"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/videoView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.155" />
+        <TextView
+            android:id="@+id/temperatureText"
+            android:layout_width="131dp"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/advent_pro_medium"
+            android:gravity="center"
+            android:text="@string/Temperature"
+            android:textColor="@android:color/background_light"
+            android:textSize="20sp" />
+
+        <ImageButton
+            android:id="@+id/stopImage"
+            android:layout_width="59dp"
+            android:layout_height="51dp"
+            android:layout_marginBottom="144dp"
+            android:background="#00FFFFFF"
+            android:contentDescription="TODO"
+            android:src="@drawable/cancel3" />
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
