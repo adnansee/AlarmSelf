@@ -68,6 +68,7 @@ public class AlarmAlertActivity extends Activity {
     private int alarmMaxVolDur;
     private Integer alarmAlertVolume;
     private boolean alarmState;
+    private TextView location;
 
     SharedPreferences sharedpreferences;
     public static final String mypreference = "mypref";
@@ -137,6 +138,11 @@ public class AlarmAlertActivity extends Activity {
         Calendar cal = Calendar.getInstance();
         currentTime = findViewById(R.id.currentTime);
         currentTime.setText(dateFormat.format(cal.getTime()));
+
+        //LOCATION
+        location = findViewById(R.id.locationText);
+        location.setText(CITY);
+
 
 
         showVideo().start();
@@ -363,7 +369,7 @@ public class AlarmAlertActivity extends Activity {
     public void volumeTimer() {
         Timer timer = new Timer();
 
-        double pause = ((alarmMaxVolDur * 4000));
+        int pause = ((alarmMaxVolDur * 4000));
         System.out.println(pause);
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -377,7 +383,7 @@ public class AlarmAlertActivity extends Activity {
                     }
                 });
             }
-        }, 1000, (long) pause);
+        }, 1000, pause);
     }
 }
 

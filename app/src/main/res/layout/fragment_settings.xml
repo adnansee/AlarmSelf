@@ -8,7 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.eddy.app.alarmself.fragments.SettingsFragment"
-    android:background="@color/skyblue"
+    android:background="@color/greenBlue"
     >
 
     <TextView
@@ -28,7 +28,7 @@
     <EditText
         android:id="@+id/locationTextedit"
         android:layout_width="357dp"
-        android:layout_height="37dp"
+        android:layout_height="41dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="96dp"
         android:layout_marginEnd="16dp"
@@ -44,14 +44,14 @@
         android:id="@+id/maxvoldurtext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="8dp"
         android:fontFamily="@font/advent_pro_medium"
         android:text="@string/enterMaxVolDur"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/maxvolduredit"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.046"
+        app:layout_constraintHorizontal_bias="0.052"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
@@ -74,7 +74,7 @@
         android:layout_width="110dp"
         android:layout_height="102dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="168dp"
+        android:layout_marginTop="216dp"
         android:layout_marginEnd="16dp"
         android:background="#00FFFFFF"
         android:src="@drawable/checked1"
@@ -82,7 +82,6 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/locationText" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
