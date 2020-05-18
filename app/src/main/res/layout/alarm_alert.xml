@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    style="@style/AppTheme.NoActionBar"
+
     >
 
 
@@ -40,6 +40,8 @@
             android:fontFamily="@font/advent_pro_medium"
             android:gravity="center"
             android:text="@string/Time"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+
             android:textColor="@android:color/background_light"
             android:textSize="20sp" />
 
@@ -50,6 +52,8 @@
             android:fontFamily="@font/advent_pro_medium"
             android:gravity="center"
             android:text="@string/Temperature"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+
             android:textColor="@android:color/background_light"
             android:textSize="20sp" />
 

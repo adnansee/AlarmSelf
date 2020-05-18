@@ -62,7 +62,8 @@ public class AlarmAlertActivity extends Activity {
     private Integer initialVolume;
     private AudioManager audioManager;
     private Handler handler;
-    private Integer alarmAlertVolume = 0;
+    private Integer alarmAlertVolume;
+    private boolean alarmState;
 
 
     @Override
@@ -109,7 +110,7 @@ public class AlarmAlertActivity extends Activity {
         //AUDIO SETTINGS
         initialVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
         //audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 12, 0);
-
+        alarmAlertVolume = initialVolume;
         volumeTimer();
 
         //CURRENT TEMP
@@ -131,14 +132,18 @@ public class AlarmAlertActivity extends Activity {
         if (alarm != null && !alarm.getTonePath().isEmpty()) {
             Log.d(TAG, "startAlarm(): " + alarm.getAlarmTimeStringParcelable());
             mediaPlayer = new MediaPlayer();
+            alarmState = true;
+
 
             if (alarm.shouldVibrate()) {
                 vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
                 long[] pattern = {1000, 200, 200, 200};
                 vibrator.vibrate(pattern, 0);
+
             }
 
             try {
+                alarmState = true;
            /*     mediaPlayer.setVolume(1.0f, 1.0f);
                 mediaPlayer.setDataSource(this, Uri.parse(alarm.getTonePath()));
                 mediaPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
@@ -157,6 +162,7 @@ public class AlarmAlertActivity extends Activity {
         if (alarm != null) {
             Log.d(TAG, "stop alarm");
             alarm.setActive(false);
+            alarmState = false;
             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, initialVolume, 0);
 
             DatabaseManager.update(alarm);
@@ -342,11 +348,12 @@ public class AlarmAlertActivity extends Activity {
 
     public void volumeTimer() {
         Timer timer = new Timer();
+
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                  runOnUiThread(() -> {
-                    if (alarmAlertVolume < 15) {
+                    if (alarmAlertVolume < 15 && alarmState) {
                         alarmAlertVolume++;
                         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, alarmAlertVolume, 0);
                     } else {

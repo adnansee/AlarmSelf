@@ -45,6 +45,8 @@
             android:id="@+id/textView_alarm_days"
             android:layout_width="229dp"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/advent_pro_medium"
+
             android:textAppearance="?android:attr/textAppearanceSmall" />
     </LinearLayout>
 

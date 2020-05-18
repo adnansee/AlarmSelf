@@ -31,7 +31,7 @@ public class SchedulingService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        sendNotification("alarm", intent);
+        sendNotification("Wish you a lovely day :)", intent);
         AlarmReceiver.completeWakefulIntent(intent);
     }
 
@@ -54,7 +54,7 @@ public class SchedulingService extends IntentService {
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.mipmap.ic_launcher)
-                        .setContentTitle("alert")
+                        .setContentTitle("ALARM-LEAF")
                         .setStyle(new NotificationCompat.BigTextStyle()
                                 .bigText(msg))
                         .setContentText(msg);
