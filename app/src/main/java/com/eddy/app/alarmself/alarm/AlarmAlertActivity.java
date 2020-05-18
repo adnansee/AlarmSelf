@@ -43,6 +43,7 @@ import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static com.eddy.app.alarmself.fragments.SettingsFragment.Duration;
 import static com.eddy.app.alarmself.fragments.SettingsFragment.Location;
 
 
@@ -57,19 +58,19 @@ public class AlarmAlertActivity extends Activity {
     TextView temperature;
     TabHost th;
     VideoView video;
-    String CITY ;//= "London,uk";
+    String CITY;//= "London,uk";
     public static final String API = "90c8c7a8d3996d110775fce0986b381a";
     private int brightness;
     private ArrayList<String> videoArray;
     private TextView currentTime;
     private Integer initialVolume;
     private AudioManager audioManager;
-    private Handler handler;
+    private int alarmMaxVolDur;
     private Integer alarmAlertVolume;
     private boolean alarmState;
+
     SharedPreferences sharedpreferences;
     public static final String mypreference = "mypref";
-
 
 
     @Override
@@ -77,13 +78,11 @@ public class AlarmAlertActivity extends Activity {
         super.onCreate(savedInstanceState);
 
 
-
-
         sharedpreferences = getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
 
         CITY = sharedpreferences.getString(Location, "");
-
+        alarmMaxVolDur = Integer.parseInt(sharedpreferences.getString(Duration, "5"));
 
 
         final Window window = getWindow();
@@ -361,14 +360,15 @@ public class AlarmAlertActivity extends Activity {
     }
 
 
-
     public void volumeTimer() {
         Timer timer = new Timer();
 
+        double pause = ((alarmMaxVolDur * 4000));
+        System.out.println(pause);
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                 runOnUiThread(() -> {
+                runOnUiThread(() -> {
                     if (alarmAlertVolume < 15 && alarmState) {
                         alarmAlertVolume++;
                         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, alarmAlertVolume, 0);
@@ -377,7 +377,7 @@ public class AlarmAlertActivity extends Activity {
                     }
                 });
             }
-        }, 1000, 5000);
+        }, 1000, (long) pause);
     }
 }
 

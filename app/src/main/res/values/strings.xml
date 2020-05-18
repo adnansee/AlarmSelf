@@ -15,5 +15,8 @@
     <string name="del">DEL</string>
     <string name="Temperature">Temp</string>
     <string name="Time">Time</string>
+    <string name="enterLocation">Location</string>
+    <string name="enterMaxVolDur">Wake up time</string>
+
 
 </resources>

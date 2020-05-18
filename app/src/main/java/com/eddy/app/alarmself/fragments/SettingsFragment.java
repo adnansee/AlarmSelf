@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,6 +33,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     private EditText alarmMaxDur;
     public static final String mypreference = "mypref";
     public static final String Location = "locationKey";
+    public static final String Duration = "durationKey";
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -40,8 +42,9 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_settings, container, false);
 
-        locationText = rootView.findViewById(R.id.locationText);
+        locationText = rootView.findViewById(R.id.locationTextedit);
         submitButton = rootView.findViewById(R.id.submitButton);
+        alarmMaxDur = rootView.findViewById(R.id.maxvolduredit);
 
         sharedpreferences = this.getActivity().getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
@@ -49,13 +52,20 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
         if (sharedpreferences.contains(Location)) {
             locationText.setText(sharedpreferences.getString(Location, ""));
         }
+        if (sharedpreferences.contains(Location)) {
+            alarmMaxDur.setText(sharedpreferences.getString(Duration, ""));
+        }
 
                 submitButton.setOnClickListener(v -> {
                     String l = String.valueOf(locationText.getText());
-                    System.out.println(l);
+                    String d = String.valueOf(alarmMaxDur.getText());
+
                     SharedPreferences.Editor editor = sharedpreferences.edit();
                     editor.putString(Location, l);
+                    editor.putString(Duration, d);
                     editor.commit();
+                    Toast.makeText(getActivity(), "Settings updated with location set to "+l+" and wake-up duration set to"+d, Toast.LENGTH_LONG).show();
+
                 });
         return rootView;
     }
@@ -73,8 +83,6 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(@NonNull View v) {
-
-
             System.out.println("ERROR MATE");
 
     }
