@@ -9,6 +9,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Vibrator;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
@@ -32,13 +33,14 @@ import com.eddy.app.alarmself.util.Parcelables;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class AlarmAlertActivity extends Activity {
@@ -57,6 +59,10 @@ public class AlarmAlertActivity extends Activity {
     private int brightness;
     private ArrayList<String> videoArray;
     private TextView currentTime;
+    private Integer initialVolume;
+    private AudioManager audioManager;
+    private Handler handler;
+    private Integer alarmAlertVolume = 0;
 
 
     @Override
@@ -97,14 +103,26 @@ public class AlarmAlertActivity extends Activity {
         telephonyManager.listen(callStateListener, CallStateListener.LISTEN_CALL_STATE);
 
         startAlarm();
-        temperature = (TextView) findViewById(R.id.temperatureText);
+        audioManager =
+                (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
+        //AUDIO SETTINGS
+        initialVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+        //audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 12, 0);
+
+        volumeTimer();
+
+        //CURRENT TEMP
+        temperature = findViewById(R.id.temperatureText);
         new weatherTask().execute();
+
+        //CURRENT TIME
         DateFormat dateFormat = new SimpleDateFormat("HH:mm");
         Calendar cal = Calendar.getInstance();
-        currentTime = (TextView) findViewById(R.id.currentTime);
-
+        currentTime = findViewById(R.id.currentTime);
         currentTime.setText(dateFormat.format(cal.getTime()));
+
+
         showVideo().start();
 
     }
@@ -121,12 +139,12 @@ public class AlarmAlertActivity extends Activity {
             }
 
             try {
-                mediaPlayer.setVolume(1.0f, 1.0f);
+           /*     mediaPlayer.setVolume(1.0f, 1.0f);
                 mediaPlayer.setDataSource(this, Uri.parse(alarm.getTonePath()));
                 mediaPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
                 mediaPlayer.setLooping(true);
                 mediaPlayer.prepare();
-                mediaPlayer.start();
+                mediaPlayer.start();*/
             } catch (Exception e) {
             } finally {
                 mediaPlayer.release();
@@ -139,6 +157,8 @@ public class AlarmAlertActivity extends Activity {
         if (alarm != null) {
             Log.d(TAG, "stop alarm");
             alarm.setActive(false);
+            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, initialVolume, 0);
+
             DatabaseManager.update(alarm);
 
             try {
@@ -294,8 +314,6 @@ public class AlarmAlertActivity extends Activity {
                 "raw", getPackageName()))));
         videoArray.add("android.resource://" + getPackageName() + "/" + (String.valueOf(getResources().getIdentifier("waves1",
                 "raw", getPackageName()))));
-        videoArray.add("android.resource://" + getPackageName() + "/" + (String.valueOf(getResources().getIdentifier("rain1",
-                "raw", getPackageName()))));
 
 
         // videoArray.add("android.resource://" + getPackageName() + "/" + R.raw.s1);
@@ -318,6 +336,25 @@ public class AlarmAlertActivity extends Activity {
         video.setMediaController(mc);
         video.setVideoURI(uri);
         return video;
+    }
+
+
+
+    public void volumeTimer() {
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                 runOnUiThread(() -> {
+                    if (alarmAlertVolume < 15) {
+                        alarmAlertVolume++;
+                        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, alarmAlertVolume, 0);
+                    } else {
+                        timer.cancel();
+                    }
+                });
+            }
+        }, 1000, 5000);
     }
 }
 
