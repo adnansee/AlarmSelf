@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -42,6 +43,8 @@ import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static com.eddy.app.alarmself.fragments.SettingsFragment.Location;
+
 
 public class AlarmAlertActivity extends Activity {
 
@@ -54,8 +57,8 @@ public class AlarmAlertActivity extends Activity {
     TextView temperature;
     TabHost th;
     VideoView video;
-    String CITY = "London,uk";
-    String API = "90c8c7a8d3996d110775fce0986b381a";
+    String CITY ;//= "London,uk";
+    public static final String API = "90c8c7a8d3996d110775fce0986b381a";
     private int brightness;
     private ArrayList<String> videoArray;
     private TextView currentTime;
@@ -64,11 +67,24 @@ public class AlarmAlertActivity extends Activity {
     private Handler handler;
     private Integer alarmAlertVolume;
     private boolean alarmState;
+    SharedPreferences sharedpreferences;
+    public static final String mypreference = "mypref";
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
+
+        sharedpreferences = getSharedPreferences(mypreference,
+                Context.MODE_PRIVATE);
+
+        CITY = sharedpreferences.getString(Location, "");
+
+
 
         final Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
